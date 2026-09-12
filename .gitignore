@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Lovable source project, kept locally only
+Old Website/
+
+# Local backups of the home page taken before the copy and structure rewrites
+_index-backups/
+
+# Dependencies
+node_modules/
