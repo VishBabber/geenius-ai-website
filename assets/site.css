@@ -187,3 +187,9 @@
   background: hsl(var(--background)); font-weight: 600;
 }
 .gx-plat-item svg { width: 1.25rem; height: 1.25rem; }
+
+/* ---- <picture> wrappers must not affect layout ---- */
+picture{display:contents}
+
+/* ---- hero headline: balance each line so no single word orphans ---- */
+@media (min-width: 768px){ .gx-h1-balance > span{text-wrap:balance} }

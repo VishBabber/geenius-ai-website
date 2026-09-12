@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ai.geeniusdigital.com/sitemap.xml
+Sitemap: https://www.geeniusdigital.com/sitemap.xml
