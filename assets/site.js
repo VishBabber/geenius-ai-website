@@ -138,6 +138,21 @@
     function decide(value) {
       try { localStorage.setItem("cookie-consent", value); } catch (e) {}
       bar.hidden = true;
+      applyConsent(value === "accepted");
+    }
+
+    // Consent Mode v2 lives in each page's head; this releases or holds it.
+    function applyConsent(granted) {
+      var state = granted ? "granted" : "denied";
+      if (typeof window.gtag === "function") {
+        window.gtag("consent", "update", {
+          ad_storage: state,
+          ad_user_data: state,
+          ad_personalization: state,
+          analytics_storage: state
+        });
+      }
+      if (granted && typeof window.gxLoadPixel === "function") window.gxLoadPixel();
     }
     var accept = $('[data-gx="cookie-accept"]', bar);
     var reject = $('[data-gx="cookie-reject"]', bar);

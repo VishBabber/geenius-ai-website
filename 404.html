@@ -2,6 +2,38 @@
 <html lang="en"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-D5BD402LVR"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+
+      // Consent Mode v2. Nothing is stored until the visitor accepts.
+      gtag('consent', 'default', {
+        ad_storage: 'denied',
+        ad_user_data: 'denied',
+        ad_personalization: 'denied',
+        analytics_storage: 'denied',
+        functionality_storage: 'granted',
+        security_storage: 'granted',
+        wait_for_update: 500
+      });
+      try {
+        if (localStorage.getItem('cookie-consent') === 'accepted') {
+          gtag('consent', 'update', {
+            ad_storage: 'granted',
+            ad_user_data: 'granted',
+            ad_personalization: 'granted',
+            analytics_storage: 'granted'
+          });
+        }
+      } catch (e) {}
+
+      gtag('js', new Date());
+
+      gtag('config', 'G-D5BD402LVR');
+    </script>
     <title>Page Not Found | Geenius AI</title>
     <meta name="description" content="The page you're looking for doesn't exist. Return to Geenius AI homepage.">
     <meta name="author" content="Geenius AI">
@@ -44,16 +76,24 @@
     </script>
     <!-- Meta Pixel Code -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1123335949846125');
-    fbq('track', 'PageView');
+    // Held until the visitor accepts cookies. assets/site.js calls this on Accept.
+    window.gxLoadPixel = function () {
+      if (window.__gxPixelLoaded) return;
+      window.__gxPixelLoaded = true;
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1123335949846125');
+      fbq('track', 'PageView');
+    };
+    try {
+      if (localStorage.getItem('cookie-consent') === 'accepted') window.gxLoadPixel();
+    } catch (e) {}
     </script>
     <!-- End Meta Pixel Code -->
     
@@ -63,10 +103,6 @@
     <link rel="stylesheet" href="assets/site.css">
   </head>
   <body>
-    <!-- Meta Pixel noscript fallback -->
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1123335949846125&ev=PageView&noscript=1"
-    /></noscript>
     <div id="root"><div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;"></div><section aria-label="Notifications alt+T" tabindex="-1" aria-live="polite" aria-relevant="additions text" aria-atomic="false"></section><div class="flex min-h-screen items-center justify-center bg-background"><div class="text-center"><h1 class="mb-4 text-4xl font-bold text-foreground">404</h1><p class="mb-4 text-xl text-muted-foreground">Oops! Page not found</p><a href="index.html" class="text-primary underline hover:text-primary/80">Return to Home</a></div></div></div>
   
 
