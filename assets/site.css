@@ -193,3 +193,247 @@ picture{display:contents}
 
 /* ---- hero headline: balance each line so no single word orphans ---- */
 @media (min-width: 768px){ .gx-h1-balance > span{text-wrap:balance} }
+
+
+/* ================================================================
+   Home page design system  (gx2-*)
+   Added October 2026. Namespaced so nothing here can collide with
+   the compiled Tailwind utilities in styles.css.
+   ================================================================ */
+
+/* ---- Brand typeface. Self-hosted, licensed files in assets/fonts ---- */
+@font-face{
+  font-family:"Glacial Indifference";
+  src:url("fonts/GlacialIndifference-Regular.woff2") format("woff2");
+  font-weight:400; font-style:normal; font-display:swap;
+}
+@font-face{
+  font-family:"Glacial Indifference";
+  src:url("fonts/GlacialIndifference-Bold.woff2") format("woff2");
+  font-weight:700; font-style:normal; font-display:swap;
+}
+html,:host{
+  font-family:"Glacial Indifference",Poppins,Futura,ui-sans-serif,system-ui,sans-serif,
+    "Apple Color Emoji","Segoe UI Emoji",Segoe UI Symbol,"Noto Color Emoji";
+}
+
+/* ---- Canonical brand colours. The printed guide's values, not the drift. ---- */
+:root{
+  --primary: 214 100% 34%;   /* #004AAD */
+  --secondary: 286 95% 32%;  /* #7A049E */
+  --gx2-grad: linear-gradient(104deg, #004AAD 0%, #7A049E 100%);
+  --gx2-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --gx2-sans: "Glacial Indifference", Poppins, Futura, ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ---- Shared shell ---- */
+.gx2-shell{ width:min(1240px, 100% - 3rem); margin-inline:auto; }
+
+/* ---- Eyebrow: rule plus mono label, never a pill ---- */
+.gx2-eyebrow{
+  display:flex; align-items:center; gap:.875rem;
+  font-family:var(--gx2-mono); font-size:.6875rem; letter-spacing:.16em;
+  text-transform:uppercase; color:hsl(var(--muted-foreground)); margin:0;
+}
+.gx2-eyebrow::before{
+  content:""; width:2.75rem; height:1px; flex:0 0 auto;
+  background:hsl(var(--foreground)); opacity:.35;
+}
+
+/* ---- Display type ---- */
+.gx2-h1{
+  font-size:clamp(2.625rem, 6vw, 4.875rem); font-weight:700; line-height:1.02;
+  letter-spacing:-.025em; margin:1.625rem 0 1.5rem; max-width:15.5ch; text-wrap:balance;
+}
+.gx2-h2{
+  font-size:clamp(2rem, 4.1vw, 3.25rem); font-weight:700; line-height:1.06;
+  letter-spacing:-.022em; margin:1.375rem 0 0; max-width:18ch; text-wrap:balance;
+}
+/* the problem section sits in a narrow column and wants a tighter measure */
+.gx2-split .gx2-h2{ max-width:12ch; }
+.gx2-lift{
+  background:var(--gx2-grad);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.gx2-sub{
+  font-size:clamp(1.0625rem, 1.35vw, 1.21875rem); color:hsl(var(--muted-foreground));
+  max-width:46ch; margin:0 0 2.125rem;
+}
+
+/* ---- Button: pill with a nested trailing pip ---- */
+.gx2-btn{
+  display:inline-flex; align-items:center; gap:.625rem;
+  background:var(--gx2-grad); color:#fff; border:0; cursor:pointer;
+  font:inherit; font-weight:700; font-size:.9375rem;
+  padding:.4375rem .4375rem .4375rem 1.375rem; border-radius:9999px; text-decoration:none;
+  transition:transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s cubic-bezier(.16,1,.3,1);
+  box-shadow:0 1px 2px rgba(0,74,173,.2), 0 14px 30px -16px rgba(74,4,140,.7);
+}
+.gx2-btn .gx2-pip{
+  width:1.875rem; height:1.875rem; border-radius:9999px; background:rgba(255,255,255,.18);
+  display:grid; place-items:center; flex:0 0 auto;
+  transition:transform .4s cubic-bezier(.16,1,.3,1), background .4s;
+}
+.gx2-btn .gx2-pip svg{ width:.8125rem; height:.8125rem; stroke:#fff; fill:none; stroke-width:1.6; }
+.gx2-btn:hover{ transform:translateY(-2px); box-shadow:0 2px 4px rgba(0,74,173,.22), 0 22px 36px -18px rgba(74,4,140,.75); }
+.gx2-btn:hover .gx2-pip{ transform:translate(3px,-1px); background:rgba(255,255,255,.28); }
+.gx2-btn:active{ transform:translateY(0) scale(.985); }
+
+/* ---- Hero: asymmetric split ---- */
+.gx2-hero{ position:relative; overflow:hidden; padding:clamp(3.5rem,8vw,6.5rem) 0 clamp(4rem,8vw,7rem); }
+.gx2-hero::before{
+  content:""; position:absolute; inset:-20% -10% auto -20%; height:70%; pointer-events:none;
+  background:radial-gradient(60% 60% at 18% 20%, rgba(0,74,173,.09), transparent 70%),
+             radial-gradient(50% 50% at 80% 10%, rgba(122,4,158,.07), transparent 70%);
+}
+.gx2-hero-grid{ position:relative; display:grid; gap:clamp(2.75rem,5vw,4.5rem); align-items:center; }
+@media (min-width:1000px){ .gx2-hero-grid{ grid-template-columns:1.14fr .86fr; } }
+.gx2-cta-row{ display:flex; flex-wrap:wrap; align-items:center; gap:1.125rem; }
+.gx2-micro{ font-size:.84375rem; color:hsl(var(--muted-foreground)); margin:0; }
+.gx2-chips{
+  display:flex; flex-wrap:wrap; gap:.625rem 1.625rem;
+  margin-top:2.375rem; padding-top:1.625rem; border-top:1px solid hsl(var(--border));
+}
+.gx2-chip{ display:flex; align-items:center; gap:.5625rem; font-size:.875rem; color:hsl(var(--muted-foreground)); }
+.gx2-chip svg{ width:.9375rem; height:.9375rem; stroke:hsl(var(--primary)); fill:none; stroke-width:1.5; flex:0 0 auto; }
+
+/* ---- Live call console ---- */
+.gx2-console{
+  background:#fff; border:1px solid hsl(var(--border)); border-radius:1.125rem; padding:1.375rem;
+  box-shadow:0 1px 1px rgba(11,16,32,.04), 0 26px 50px -26px rgba(11,16,32,.3);
+}
+.gx2-con-top{
+  display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding-bottom:1rem; border-bottom:1px solid hsl(var(--border));
+}
+.gx2-who{ display:flex; align-items:center; gap:.75rem; }
+.gx2-ring{
+  width:2.25rem; height:2.25rem; border-radius:9999px; background:rgba(0,74,173,.09);
+  display:grid; place-items:center; position:relative; flex:0 0 auto;
+}
+.gx2-ring svg{ width:1rem; height:1rem; stroke:hsl(var(--primary)); fill:none; stroke-width:1.6; }
+.gx2-ring::after{
+  content:""; position:absolute; inset:0; border-radius:9999px;
+  border:1px solid rgba(0,74,173,.4); animation:gx2-pulse 2.6s cubic-bezier(.16,1,.3,1) infinite;
+}
+@keyframes gx2-pulse{ 0%{transform:scale(1);opacity:.75} 70%,100%{transform:scale(1.65);opacity:0} }
+.gx2-who b{ display:block; font-size:.90625rem; line-height:1.3; font-family:var(--gx2-sans); }
+.gx2-who span{ display:block; font-size:.75rem; color:hsl(var(--muted-foreground)); font-family:var(--gx2-mono); }
+.gx2-state{
+  font-family:var(--gx2-mono); font-size:.65625rem; letter-spacing:.12em; text-transform:uppercase;
+  color:#1C7F4B; display:flex; align-items:center; gap:.4375rem; flex:0 0 auto;
+}
+.gx2-state i{ width:.375rem; height:.375rem; border-radius:9999px; background:#1C7F4B; display:block; animation:gx2-blink 1.8s ease-in-out infinite; }
+@keyframes gx2-blink{ 0%,100%{opacity:1} 50%{opacity:.25} }
+
+.gx2-turns{ display:flex; flex-direction:column; gap:.8125rem; padding-top:1.0625rem; }
+.gx2-turn{ display:flex; gap:.6875rem; font-size:.875rem; line-height:1.5; }
+.gx2-turn .gx2-tag{
+  font-family:var(--gx2-mono); font-size:.625rem; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap;
+  padding-top:.1875rem; flex:0 0 4.25rem;
+}
+.gx2-turn.is-ai .gx2-tag{ color:hsl(var(--primary)); }
+.gx2-turn.is-caller .gx2-tag{ color:hsl(var(--muted-foreground)); }
+.gx2-turn p{ margin:0; }
+.gx2-turn.is-caller p{ color:hsl(var(--muted-foreground)); }
+
+.gx2-outcome{
+  margin-top:1rem; padding-top:.9375rem; border-top:1px solid hsl(var(--border));
+  display:flex; align-items:center; gap:.75rem;
+}
+.gx2-tick{ width:1.875rem; height:1.875rem; border-radius:9999px; background:var(--gx2-grad); display:grid; place-items:center; flex:0 0 auto; }
+.gx2-tick svg{ width:.875rem; height:.875rem; stroke:#fff; fill:none; stroke-width:2.2; }
+.gx2-outcome b{ display:block; font-size:.875rem; line-height:1.3; font-family:var(--gx2-sans); }
+.gx2-outcome span{ display:block; font-family:var(--gx2-mono); font-size:.75rem; color:hsl(var(--muted-foreground)); }
+.gx2-con-note{
+  margin:1rem 0 0; text-align:right; font-family:var(--gx2-mono);
+  font-size:.65625rem; letter-spacing:.1em; text-transform:uppercase; color:hsl(var(--muted-foreground));
+}
+
+/* ---- Demo console: one call, with the switch into character partway through ---- */
+.gx2-turn, .gx2-outcome, .gx2-switch{ opacity:0; transform:translateY(8px); animation:gx2-rise .7s cubic-bezier(.16,1,.3,1) forwards; }
+.gx2-turns > *:nth-child(1){ animation-delay:.45s }
+.gx2-turns > *:nth-child(2){ animation-delay:1.6s }
+.gx2-turns > *:nth-child(3){ animation-delay:2.9s }
+.gx2-turns > *:nth-child(4){ animation-delay:3.9s }
+.gx2-turns > *:nth-child(5){ animation-delay:5.0s }
+.gx2-turns > *:nth-child(6){ animation-delay:6.2s }
+.gx2-outcome{ animation-delay:7.4s }
+@keyframes gx2-rise{ to{ opacity:1; transform:none } }
+
+/* the moment it stops being Geenius and starts being the business */
+.gx2-switch{
+  display:flex; align-items:center; gap:.75rem; margin:.3125rem 0;
+  font-family:var(--gx2-mono); font-size:.625rem; letter-spacing:.1em;
+  text-transform:uppercase; color:hsl(var(--primary)); white-space:nowrap;
+}
+.gx2-switch::before, .gx2-switch::after{ content:""; height:1px; background:hsl(var(--border)); flex:1 1 auto; }
+.gx2-switch::before{ max-width:2.5rem; }
+
+.gx2-callno{
+  font-family:var(--gx2-mono); font-size:.65625rem; letter-spacing:.12em; text-transform:uppercase;
+  color:hsl(var(--muted-foreground)); margin:0 0 .75rem;
+}
+.gx2-callno b{ color:hsl(var(--primary)); font-weight:700; }
+
+/* ---- Problem: editorial split, no cards ---- */
+.gx2-split{ display:grid; gap:clamp(2.5rem,5vw,5rem); }
+@media (min-width:1000px){ .gx2-split{ grid-template-columns:.95fr 1.05fr; align-items:start; } }
+.gx2-prose p{ font-size:1.0625rem; color:hsl(var(--muted-foreground)); margin:0 0 1.1875rem; max-width:60ch; }
+.gx2-prose p:last-child{ margin-bottom:0; }
+
+.gx2-ledger{ margin-top:1.875rem; border-top:1px solid hsl(var(--border)); }
+.gx2-row{
+  display:grid; grid-template-columns:3.875rem 1fr auto; gap:1rem; align-items:baseline;
+  padding:.8125rem 0; border-bottom:1px solid hsl(var(--border));
+}
+.gx2-row time{ font-family:var(--gx2-mono); font-size:.78125rem; color:hsl(var(--muted-foreground)); font-variant-numeric:tabular-nums; }
+.gx2-row .gx2-what{ font-size:.90625rem; color:hsl(var(--muted-foreground)); }
+.gx2-row .gx2-st{ font-family:var(--gx2-mono); font-size:.65625rem; letter-spacing:.1em; text-transform:uppercase; color:#A33; }
+.gx2-row.is-won .gx2-st{ color:#1C7F4B; }
+.gx2-row.is-won .gx2-what{ color:hsl(var(--foreground)); }
+.gx2-ledger-note{ margin:.875rem 0 0; font-size:.78125rem; color:hsl(var(--muted-foreground)); }
+
+/* ---- Stats: typographic, hairline split, not cards ---- */
+.gx2-stats{ display:grid; margin-top:clamp(3rem,5vw,4.75rem); border-top:1px solid hsl(var(--border)); }
+@media (min-width:760px){ .gx2-stats{ grid-template-columns:repeat(3,1fr); } }
+.gx2-stat{ padding:1.625rem 0 .25rem; }
+@media (min-width:760px){
+  .gx2-stat{ padding:1.75rem 1.875rem .375rem; }
+  .gx2-stat + .gx2-stat{ border-left:1px solid hsl(var(--border)); }
+  .gx2-stat:first-child{ padding-left:0; }
+}
+@media (max-width:759px){ .gx2-stat + .gx2-stat{ border-top:1px solid hsl(var(--border)); } }
+.gx2-stat b{ display:block; font-size:clamp(2.375rem,4.6vw,3.625rem); font-weight:700; letter-spacing:-.03em; line-height:1; color:hsl(var(--primary)); }
+.gx2-stat span{ display:block; margin-top:.5625rem; font-size:.90625rem; color:hsl(var(--muted-foreground)); }
+
+/* ---- Scroll reveal ---- */
+.gx2-rv{ opacity:0; transform:translateY(22px); transition:opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); }
+.gx2-rv.is-in{ opacity:1; transform:none; }
+
+@media (prefers-reduced-motion:reduce){
+  .gx2-rv{ opacity:1; transform:none; transition:none; }
+  .gx2-turn, .gx2-outcome, .gx2-switch{ opacity:1; transform:none; animation:none; }
+  .gx2-switch{ opacity:1; transform:none; animation:none; }
+  .gx2-ring::after, .gx2-state i{ animation:none; }
+  .gx2-btn, .gx2-btn .gx2-pip{ transition:none; }
+}
+
+/* ---- Feature list: hairline rows, not a three-card grid ---- */
+.gx2-feats{ display:grid; gap:0; border-top:1px solid hsl(var(--border)); }
+@media (min-width:860px){ .gx2-feats{ grid-template-columns:1fr 1fr; column-gap:4rem; } }
+.gx2-feat{ padding:1.75rem 0; border-bottom:1px solid hsl(var(--border)); display:grid; grid-template-columns:auto 1fr; gap:1.125rem; align-items:start; }
+.gx2-feat-ico{ width:1.75rem; height:1.75rem; display:grid; place-items:center; flex:0 0 auto; margin-top:.125rem; }
+.gx2-feat-ico svg{ width:1.25rem; height:1.25rem; stroke:hsl(var(--primary)); fill:none; stroke-width:1.5; }
+.gx2-feat h3{ font-size:1.0625rem; font-weight:700; margin:0 0 .4375rem; letter-spacing:-.01em; }
+.gx2-feat p{ margin:0; font-size:.9375rem; color:hsl(var(--muted-foreground)); max-width:46ch; }
+@media (min-width:860px){
+  .gx2-feat:nth-child(-n+2){ border-top:0; }
+}
+
+/* ---- Numbered steps variant of the hairline list ---- */
+.gx2-feat-num{
+  width:2rem; height:2rem; border-radius:9999px; flex:0 0 auto;
+  display:grid; place-items:center; font-weight:700; font-size:.875rem;
+  color:hsl(var(--primary)); background:rgba(0,74,173,.09); margin-top:.0625rem;
+}

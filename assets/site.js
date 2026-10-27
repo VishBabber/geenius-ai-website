@@ -794,6 +794,32 @@
     });
   }
 
+  /* ================================================================
+     Scroll reveal for the gx2 home page sections
+     transform + opacity only, and it stays put if the visitor
+     has asked for reduced motion.
+     ================================================================ */
+  function initReveals() {
+    var items = $$('.gx2-rv');
+    if (!items.length) return;
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      items.forEach(function (el) { el.classList.add('is-in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.08 });
+    items.forEach(function (el, i) {
+      el.style.transitionDelay = (i % 2) * 90 + 'ms';
+      io.observe(el);
+    });
+  }
+
   function boot() {
     initPopups();
     initDemoWidget();
@@ -811,6 +837,7 @@
     initVideoOverlays();
     initFadeSections();
     initParallax();
+    initReveals();
   }
 
   if (document.readyState === "loading") {
